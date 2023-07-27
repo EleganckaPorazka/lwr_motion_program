@@ -48,3 +48,7 @@ If you wish, you can also start the [**LWR forward kinematics solver**](https://
 ```
 ros2 run lwr_forward_kinematics lwr_forward_kinematics
 ```
+
+## Notes
+
+This code is also uploaded to [**my other repository**](https://gitlab.com/lwolinski/lwr_motion_program.git).
