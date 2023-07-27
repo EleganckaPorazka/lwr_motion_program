@@ -71,15 +71,18 @@ def main(args=None):
     
     goal_msg = PTP.Goal()
     goal_msg.start_position = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-    goal_msg.end_position = [0.0, 0.0, 0.0, pi/2, 0.0, -pi/2, 0.0]
+    goal_msg.end_position = [pi/4, 0.0, 0.0, pi/2, 0.0, -pi/2, pi/4]
     goal_msg.vel_max = 0.5
     goal_msg.acc_max = 2.0
     goal_msg.dt = 0.05
-    
     action_client.send_goal(goal_msg)
     
+    # if goal completed, then move to another goal
+    # maybe add a subscriber for JointState to read the new starting position
+    #goal_msg.start_position = [pi/4, 0.0, 0.0, pi/2, 0.0, -pi/2, pi/4]
+    #goal_msg.end_position = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    #action_client.send_goal(goal_msg)
     
-
     rclpy.spin(action_client)
 
 
