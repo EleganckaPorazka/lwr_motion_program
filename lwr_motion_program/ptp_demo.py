@@ -24,14 +24,7 @@ class PTP_demo(Node):
         self.joint_point_subscriber_ = self.create_subscription(JointTrajectoryPoint, 'jnt_sin_traj', self.listener_callback, 10)
         self.joint_point_subscriber_  # prevent unused variable warning
 
-    def send_goal(self):
-        goal_msg = PTP.Goal()
-        goal_msg.start_position = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-        goal_msg.end_position = [0.0, 0.0, 0.0, pi/2, 0.0, -pi/2, 0.0]
-        goal_msg.vel_max = 0.5
-        goal_msg.acc_max = 2.0
-        goal_msg.dt = 0.05
-
+    def send_goal(self, goal_msg):
         self.action_client_.wait_for_server()
         
         self.send_goal_future_ = self.action_client_.send_goal_async(goal_msg, feedback_callback=self.feedback_callback)
@@ -75,8 +68,17 @@ def main(args=None):
     rclpy.init(args=args)
 
     action_client = PTP_demo()
-
-    action_client.send_goal()
+    
+    goal_msg = PTP.Goal()
+    goal_msg.start_position = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    goal_msg.end_position = [0.0, 0.0, 0.0, pi/2, 0.0, -pi/2, 0.0]
+    goal_msg.vel_max = 0.5
+    goal_msg.acc_max = 2.0
+    goal_msg.dt = 0.05
+    
+    action_client.send_goal(goal_msg)
+    
+    
 
     rclpy.spin(action_client)
 

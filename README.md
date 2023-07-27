@@ -48,4 +48,3 @@ If you wish, you can also start the [**LWR forward kinematics solver**](https://
 ```
 ros2 run lwr_forward_kinematics lwr_forward_kinematics
 ```
-```
