@@ -28,3 +28,10 @@ source /opt/ros/humble/setup.bash
 colcon build
 . install/setup.bash
 ```
+
+## Running
+
+To run the 'ptp_demo' node, use the following command:
+```
+ros2 run lwr_motion_program ptp_demo
+```
