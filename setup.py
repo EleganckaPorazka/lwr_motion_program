@@ -20,6 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+        'ptp_demo = lwr_motion_program.ptp_demo:main',
         ],
     },
 )
