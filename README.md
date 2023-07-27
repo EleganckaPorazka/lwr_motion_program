@@ -31,7 +31,21 @@ colcon build
 
 ## Running
 
-To run the 'ptp_demo' node, use the following command:
+To run the PTP demo, use the following command to initialize the rviz visualization:
+```
+ros2 launch lwr_description display.launch.py use_gui:=false
+```
+and start the joint trajectory generator:
+```
+ros2 run trajectory_generator joint_sinusoidal_trajectory
+```
+and finally start the 'ptp_demo' node:
 ```
 ros2 run lwr_motion_program ptp_demo
+```
+
+If you wish, you can also start the [**LWR forward kinematics solver**](https://github.com/EleganckaPorazka/lwr_forward_kinematics.git):
+```
+ros2 run lwr_forward_kinematics lwr_forward_kinematics
+```
 ```
