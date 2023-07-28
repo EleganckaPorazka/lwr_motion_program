@@ -23,6 +23,8 @@ class PTP_demo(Node):
         
         self.joint_point_subscriber_ = self.create_subscription(JointTrajectoryPoint, 'jnt_sin_traj', self.listener_callback, 10)
         self.joint_point_subscriber_  # prevent unused variable warning
+        
+        self.result_ = False
 
     def send_goal(self, goal_msg):
         self.action_client_.wait_for_server()
@@ -34,23 +36,24 @@ class PTP_demo(Node):
     def goal_response_callback(self, future):
         goal_handle = future.result()
         if not goal_handle.accepted:
-            self.get_logger().info('Goal rejected :(')
+            self.get_logger().info("Goal rejected.")
             return
 
-        self.get_logger().info('Goal accepted :)')
+        self.get_logger().info("Goal accepted.")
 
         self.get_result_future_ = goal_handle.get_result_async()
         self.get_result_future_.add_done_callback(self.get_result_callback)
 
     def get_result_callback(self, future):
         result = future.result().result
-        self.get_logger().info('Success: ' + str(result.success))
-        self.get_logger().info('Message: ' + result.message)
+        self.get_logger().info("Success: " + str(result.success))
+        self.get_logger().info("Message: " + result.message)
+        self.result_ = result.success
         rclpy.shutdown()
 
     def feedback_callback(self, feedback_msg):
         feedback = feedback_msg.feedback
-        self.get_logger().info('Received feedback: ' + str(feedback.percent_complete))
+        self.get_logger().info("Received feedback: " + str(feedback.percent_complete))
     
     def listener_callback(self, msg):
         q = msg.positions
@@ -62,6 +65,20 @@ class PTP_demo(Node):
         response.name = ['Joint_1', 'Joint_2', 'Joint_3', 'Joint_4', 'Joint_5', 'Joint_6', 'Joint_7']
         response.position = q
         self.joint_publisher_.publish(response)
+        
+    def motion_program(self):
+        goal_msg = PTP.Goal()
+        goal_msg.start_position = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+        goal_msg.end_position = [pi/4, 0.0, 0.0, pi/2, 0.0, -pi/2, pi/4]
+        goal_msg.vel_max = 0.5
+        goal_msg.acc_max = 2.0
+        goal_msg.dt = 0.05
+        self.send_goal(goal_msg)
+        
+        # ~ while (self.result_ is False):
+            # ~ pass
+        
+        # ~ self.get_logger().info(str(self.result_))
 
 
 def main(args=None):
@@ -69,22 +86,16 @@ def main(args=None):
 
     action_client = PTP_demo()
     
-    goal_msg = PTP.Goal()
-    goal_msg.start_position = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-    goal_msg.end_position = [pi/4, 0.0, 0.0, pi/2, 0.0, -pi/2, pi/4]
-    goal_msg.vel_max = 0.5
-    goal_msg.acc_max = 2.0
-    goal_msg.dt = 0.05
-    action_client.send_goal(goal_msg)
+    action_client.motion_program()
     
     # if goal completed, then move to another goal
     # maybe add a subscriber for JointState to read the new starting position
     #goal_msg.start_position = [pi/4, 0.0, 0.0, pi/2, 0.0, -pi/2, pi/4]
     #goal_msg.end_position = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     #action_client.send_goal(goal_msg)
+    #https://github.com/HotBlackRobotics/hotblackrobotics.github.io/blob/master/en/blog/_posts/2018-01-29-seq-goals-py.md
     
     rclpy.spin(action_client)
-
 
 if __name__ == '__main__':
     main()
