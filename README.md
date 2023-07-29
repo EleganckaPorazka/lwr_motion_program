@@ -82,6 +82,8 @@ ros2 run lwr_motion_program lin_demo
 
 Remember to set 'dt' to the same value in *lin_demo* and as a parameter of *inverse_kinematics_basic*.
 
+TODO: It seems to be working OK in some runs, and wrong in others. Perhaps sometimes there is some mismatch (loss of synchronization?) when reading joint states?
+
 ## Notes
 
 This code is also uploaded to [**my other repository**](https://gitlab.com/lwolinski/lwr_motion_program.git).
