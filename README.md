@@ -16,7 +16,13 @@ It is recommended to use Ubuntu 22.04 with [**ROS 2 Humble**](https://docs.ros.o
 
 [**lwr_description**](https://github.com/EleganckaPorazka/kuka_lwr4plus_urdf.git)
 
+[**lwr_forward_kinematics**](https://github.com/EleganckaPorazka/lwr_forward_kinematics.git)
+
+[**inverse_kinematics**](https://github.com/EleganckaPorazka/inverse_kinematics.git)
+
 [**trajectory_generator**](https://github.com/EleganckaPorazka/trajectory_generator.git)
+
+[**rrlib_interfaces**](https://github.com/EleganckaPorazka/rrlib_interfaces.git)
 
 ### Building from source
 
