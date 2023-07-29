@@ -72,8 +72,8 @@ ros2 run inverse_kinematics inverse_kinematics_basic
 and set its parameters:
 ```
 ros2 param set /inverse_kinematics_basic DOF '7'
-ros2 param set /inverse_kinematics_basic dt '0.005'
-ros2 param set /inverse_kinematics_basic '[100.0, 1.0]'
+ros2 param set /inverse_kinematics_basic dt '0.01'
+ros2 param set /inverse_kinematics_basic clik_gains '[100.0, 1.0]'
 ```
 and finally start the 'lin_demo' node:
 ```
@@ -82,8 +82,12 @@ ros2 run lwr_motion_program lin_demo
 
 Remember to set 'dt' to the same value in *lin_demo* and as a parameter of *inverse_kinematics_basic*.
 
-TODO: It seems to be working OK in some runs, and wrong in others. Perhaps sometimes there is some mismatch (loss of synchronization?) when reading joint states?
-
 ## Notes
+
+TODO: The *lin_demo* seems to be working OK in some runs, and wrong in others. Perhaps sometimes there is some mismatch (loss of synchronization?) when reading joint states? And in some runs, even though it goes along a straight line, the feedback goes only to 97-98% complete, and then "Trajectory finished". However, changing dt to 0.01 from 0.005 resulted in much more truly successful runs (straight line motion, 100% complete). Perhaps the virtual machine is mediocre, but I will be able to test it on a good PC not until September.
+
+TODO: multiple goals to define PTP and LIN combinations.
+
+TODO: LAUNCHER! Or at least parameters in yaml file
 
 This code is also uploaded to [**my other repository**](https://gitlab.com/lwolinski/lwr_motion_program.git).

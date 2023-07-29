@@ -80,7 +80,7 @@ class LIN_demo(Node):
         goal_msg.end_pose = [0.0, 0.39, 0.6325, -0.707107, -0.707107, 0.0, 0.0]
         goal_msg.vel_max = 0.5
         goal_msg.acc_max = 2.0
-        goal_msg.dt = 0.005
+        goal_msg.dt = 0.01
         self.send_goal(goal_msg)
         
         # ~ while (self.result_ is False):
