@@ -31,6 +31,8 @@ colcon build
 
 ## Running
 
+### PTP demo
+
 To run the PTP demo, use the following command to initialize the rviz visualization:
 ```
 ros2 launch lwr_description display.launch.py use_gui:=false
@@ -48,6 +50,37 @@ If you wish, you can also start the [**LWR forward kinematics solver**](https://
 ```
 ros2 run lwr_forward_kinematics lwr_forward_kinematics
 ```
+
+### LIN demo
+
+To run the LIN demo, use the following command to initialize the rviz visualization:
+```
+ros2 launch lwr_description display.launch.py use_gui:=false
+```
+and start the Cartesian trajectory generator:
+```
+ros2 run trajectory_generator cartesian_sinusoidal_trajectory
+```
+and the forward kinematics solver:
+```
+ros2 run lwr_forward_kinematics lwr_forward_kinematics
+```
+and the inverse kinematics solver:
+```
+ros2 run inverse_kinematics inverse_kinematics_basic 
+```
+and set its parameters:
+```
+ros2 param set /inverse_kinematics_basic DOF '7'
+ros2 param set /inverse_kinematics_basic dt '0.005'
+ros2 param set /inverse_kinematics_basic '[100.0, 1.0]'
+```
+and finally start the 'lin_demo' node:
+```
+ros2 run lwr_motion_program lin_demo
+```
+
+Remember to set 'dt' to the same value in *lin_demo* and as a parameter of *inverse_kinematics_basic*.
 
 ## Notes
 

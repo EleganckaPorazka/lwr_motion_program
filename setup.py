@@ -21,6 +21,7 @@ setup(
     entry_points={
         'console_scripts': [
         'ptp_demo = lwr_motion_program.ptp_demo:main',
+        'lin_demo = lwr_motion_program.lin_demo:main'
         ],
     },
 )
