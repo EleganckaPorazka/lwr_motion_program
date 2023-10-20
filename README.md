@@ -49,8 +49,9 @@ ros2 run trajectory_generator joint_sinusoidal_trajectory
 ```
 and finally start the 'ptp_demo' node:
 ```
-ros2 run lwr_motion_program ptp_demo
+ros2 run lwr_motion_program ptp_demo --ros_args -p dt:=X
 ```
+where 'X' is the desired time step in seconds.
 
 If you wish, you can also start the [**LWR forward kinematics solver**](https://github.com/EleganckaPorazka/lwr_forward_kinematics.git):
 ```
@@ -83,10 +84,9 @@ ros2 param set /inverse_kinematics_basic clik_gains '[100.0, 1.0]'
 ```
 and finally start the 'lin_demo' node:
 ```
-ros2 run lwr_motion_program lin_demo
+ros2 run lwr_motion_program lin_demo --ros_args -p dt:=X
 ```
-
-Remember to set 'dt' to the same value in *lin_demo* and as a parameter of *inverse_kinematics_basic*.
+where 'X' is the desired time step in seconds. Remember to set the same value to the parameter 'dt' of *lin_demo* as the 'dt' parameter of *inverse_kinematics_basic*.
 
 ## Notes
 

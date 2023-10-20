@@ -8,6 +8,7 @@ from rclpy.node import Node
 from sensor_msgs.msg import JointState
 from trajectory_msgs.msg import JointTrajectoryPoint
 from math import pi
+from rcl_interfaces.msg import ParameterDescriptor
 
 from rrlib_interfaces.action import PTP
 
@@ -16,6 +17,10 @@ class PTP_demo(Node):
 
     def __init__(self):
         super().__init__('ptp_demo')
+        
+        param_descriptor = ParameterDescriptor(description='Time step.')
+        
+        self.declare_parameter('dt', 0.01, param_descriptor)
         
         self.action_client_ = ActionClient(self, PTP, 'ptp_motion')
         
@@ -72,7 +77,8 @@ class PTP_demo(Node):
         goal_msg.end_position = [pi/4, 0.0, 0.0, pi/2, 0.0, -pi/2, pi/4]
         goal_msg.vel_max = 0.5
         goal_msg.acc_max = 2.0
-        goal_msg.dt = 0.05
+        dt_param = self.get_parameter('dt')
+        goal_msg.dt = dt_param.value
         self.send_goal(goal_msg)
         
         # ~ while (self.result_ is False):

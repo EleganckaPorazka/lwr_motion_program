@@ -8,6 +8,7 @@ from rclpy.node import Node
 from sensor_msgs.msg import JointState
 from trajectory_msgs.msg import JointTrajectoryPoint
 from math import pi
+from rcl_interfaces.msg import ParameterDescriptor
 
 from rrlib_interfaces.action import CART
 
@@ -16,6 +17,10 @@ class LIN_demo(Node):
 
     def __init__(self):
         super().__init__('lin_demo')
+        
+        param_descriptor = ParameterDescriptor(description='Time step.')
+        
+        self.declare_parameter('dt', 0.01, param_descriptor)
         
         self.action_client_ = ActionClient(self, CART, 'cartesian_motion')
         
@@ -80,7 +85,8 @@ class LIN_demo(Node):
         goal_msg.end_pose = [0.0, 0.39, 0.6325, -0.707107, -0.707107, 0.0, 0.0]
         goal_msg.vel_max = 0.5
         goal_msg.acc_max = 2.0
-        goal_msg.dt = 0.01
+        dt_param = self.get_parameter('dt')
+        goal_msg.dt = dt_param.value
         self.send_goal(goal_msg)
         
         # ~ while (self.result_ is False):
