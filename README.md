@@ -90,10 +90,10 @@ where 'X' is the desired time step in seconds. Remember to set the same value to
 
 ## Notes
 
-TODO: The *lin_demo* seems to be working OK in some runs, and wrong in others. Perhaps sometimes there is some mismatch (loss of synchronization?) when reading joint states? And in some runs, even though it goes along a straight line, the feedback goes only to 97-98% complete, and then "Trajectory finished". However, changing dt to 0.01 from 0.005 resulted in much more truly successful runs (straight line motion, 100% complete). Perhaps the virtual machine is mediocre, but I will be able to test it on a good PC not until September.
+TODO: The *lin_demo* seems to be working OK in some runs, and wrong in others. Perhaps sometimes there is some mismatch (loss of synchronization?) when reading joint states? Time to explore the real-time kernel?
 
 TODO: multiple goals to define PTP and LIN combinations.
 
-TODO: LAUNCHER! Or at least parameters in yaml file
+TODO: launcher and parameter yaml files -- in progress...
 
 This code is also uploaded to [**my other repository**](https://gitlab.com/lwolinski/lwr_motion_program.git).
