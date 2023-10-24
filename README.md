@@ -82,6 +82,10 @@ ros2 param set /inverse_kinematics_basic DOF '7'
 ros2 param set /inverse_kinematics_basic dt '0.01'
 ros2 param set /inverse_kinematics_basic clik_gains '[100.0, 1.0]'
 ```
+or just use the launcher for the inverse kinematics solver:
+```
+ros2 launch inverse_kinematics inv_kin.launch.py
+```
 and finally start the 'lin_demo' node:
 ```
 ros2 run lwr_motion_program lin_demo --ros_args -p dt:=X
