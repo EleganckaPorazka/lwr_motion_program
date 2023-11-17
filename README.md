@@ -43,7 +43,12 @@ To run the PTP demo, use the following command to initialize the rviz visualizat
 ```
 ros2 launch lwr_description display.launch.py use_gui:=false
 ```
-and start the joint trajectory generator:
+and call the PTP demo launcher:
+```
+ros2 launch lwr_motion_program ptp_demo.launch.py
+```
+
+Instead of the LIN demo launcher, you can start the joint trajectory generator:
 ```
 ros2 run trajectory_generator joint_sinusoidal_trajectory
 ```
@@ -64,7 +69,12 @@ To run the LIN demo, use the following command to initialize the rviz visualizat
 ```
 ros2 launch lwr_description display.launch.py use_gui:=false
 ```
-and start the Cartesian trajectory generator:
+and call the LIN demo launcher:
+```
+ros2 launch lwr_motion_program lin_demo.launch.py
+```
+
+Instead of the LIN demo launcher, you can start the Cartesian trajectory generator:
 ```
 ros2 run trajectory_generator cartesian_sinusoidal_trajectory
 ```
@@ -98,6 +108,11 @@ TODO: The *lin_demo* seems to be working OK in some runs, and wrong in others. P
 
 TODO: multiple goals to define PTP and LIN combinations.
 
-TODO: launcher and parameter yaml files -- in progress...
+TODO: *ptp_demo* and *lin_demo* don't update 'dt' parameter from the outside (be it a command line or a launcher). Guess, I missed the parameter handling.
+
+TODO: *lwr_forward* doesn't update 'tool' parameter when called like that:
+```
+ros2 run lwr_forward_kinematics lwr_forward_kinematics --ros_args -p tool:=[0.1,0.1,0.1,0.0,0.0,0.0,1.0]
+``` 
 
 This code is also uploaded to [**my other repository**](https://gitlab.com/lwolinski/lwr_motion_program.git).
