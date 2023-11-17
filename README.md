@@ -48,7 +48,7 @@ and call the PTP demo launcher:
 ros2 launch lwr_motion_program ptp_demo.launch.py
 ```
 
-Instead of the LIN demo launcher, you can start the joint trajectory generator:
+Instead of the PTP demo launcher, you can start the joint trajectory generator:
 ```
 ros2 run trajectory_generator joint_sinusoidal_trajectory
 ```
