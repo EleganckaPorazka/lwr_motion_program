@@ -73,6 +73,11 @@ and call the LIN demo launcher:
 ```
 ros2 launch lwr_motion_program lin_demo.launch.py
 ```
+An example:
+```
+ros2 launch lwr_motion_program lin_demo.launch.py dt:=0.01 clik_gains:=[100.0,1.0] tool:=[0.1,0.1,0.1,0.0,0.0,0.0,1.0]
+```
+starts the LIN demo and sets the parameters 'dt' (time step), 'clik_gains' (position and orientation error gain for CLIK), and 'tool' (position and orientation in quaternions of the tool with regards to the last link's frame) to the given values.
 
 Instead of the LIN demo launcher, you can start the Cartesian trajectory generator:
 ```

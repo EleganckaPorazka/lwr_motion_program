@@ -17,23 +17,11 @@ def generate_launch_description():
     dt_launch_arg = DeclareLaunchArgument(
         "dt", default_value=TextSubstitution(text="0.01")
     )
+    #TODO: 'dt' parameter shall be set also for the inv_kin_launch_include, and along it, 'clik_gains'
     
     # end effector position (in meters) and orientation (in quaternions), relative to the last link's frame: [x,y,z,qx,qy,qz,qw]
     tool_launch_arg = DeclareLaunchArgument(
         "tool", default_value=TextSubstitution(text="[0.0,0.0,0.0,0.0,0.0,0.0,1.0]")
-    )
-    
-    # number of the manipulator's degrees of freedom
-    DOF_launch_arg = DeclareLaunchArgument(
-        "DOF", default_value=TextSubstitution(text="7")
-    )
-    
-    # gains for the error feedback of the solution to the inverse kinematics problem
-    # [position error gain, orientation error gain]
-    # see: Closed-Loop Inverse Kinematics (CLIK)
-    # gains shall be less than 2/dt
-    clik_gains_launch_arg = DeclareLaunchArgument(
-        "clik_gains", default_value=TextSubstitution(text="[100.0,1.0]")
     )
     
     cartesian_trajectory_node = Node(
@@ -53,25 +41,12 @@ def generate_launch_description():
         }]
         )
     
-    inverse_kinematics_node = Node(
-        package='inverse_kinematics',
-        executable='inverse_kinematics_basic',
-        namespace='',
-        name='inverse_kinematics_basic',
-        parameters=[{
-            "DOF": LaunchConfiguration('DOF'),
-            "dt": LaunchConfiguration('dt'),
-            "clik_gains": LaunchConfiguration('clik_gains'),
-        }]
+    inv_kin_launch_include = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(
+                get_package_share_directory('inverse_kinematics'),
+                'launch/inv_kin.launch.py'))
         )
-
-    # inverse_kinematics launcher -- reads its own "dt", "DOF", and "clik_gains" from the config yaml file
-#    inv_kin_launch_include = IncludeLaunchDescription(
-#        PythonLaunchDescriptionSource(
-#            os.path.join(
-#                get_package_share_directory('inverse_kinematics'),
-#                'launch/inv_kin.launch.py'))
-#        )
 
     lwr_motion_node = Node(
         package='lwr_motion_program',
@@ -86,11 +61,9 @@ def generate_launch_description():
     return LaunchDescription([
         dt_launch_arg,
         tool_launch_arg,
-        DOF_launch_arg,
-        clik_gains_launch_arg,
         cartesian_trajectory_node,
         lwr_forward_kinematics_node,
-        inverse_kinematics_node,
+        inv_kin_launch_include,
         lwr_motion_node
         ])
 
