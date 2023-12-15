@@ -19,7 +19,6 @@ class LIN_demo(Node):
         super().__init__('lin_demo')
         
         param_descriptor = ParameterDescriptor(description='Time step.')
-        
         self.declare_parameter('dt', 0.01, param_descriptor)
         
         self.action_client_ = ActionClient(self, CART, 'cartesian_motion')
@@ -87,6 +86,7 @@ class LIN_demo(Node):
         goal_msg.acc_max = 2.0
         dt_param = self.get_parameter('dt')
         goal_msg.dt = dt_param.value
+        #self.get_logger().info("dt = " + str(goal_msg.dt))
         self.send_goal(goal_msg)
         
         # ~ while (self.result_ is False):

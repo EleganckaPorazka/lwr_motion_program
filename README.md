@@ -113,11 +113,4 @@ TODO: The *lin_demo* seems to be working OK in some runs, and wrong in others. P
 
 TODO: multiple goals to define PTP and LIN combinations.
 
-TODO: *ptp_demo* and *lin_demo* don't update 'dt' parameter from the outside (be it a command line or a launcher). Guess, I missed the parameter handling.
-
-TODO: *lwr_forward* doesn't update 'tool' parameter when called like that:
-```
-ros2 run lwr_forward_kinematics lwr_forward_kinematics --ros_args -p tool:=[0.1,0.1,0.1,0.0,0.0,0.0,1.0]
-``` 
-
 This code is also uploaded to [**my other repository**](https://gitlab.com/lwolinski/lwr_motion_program.git).
